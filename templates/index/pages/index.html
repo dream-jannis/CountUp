@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CountUp!</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>CountUp! - Strichliste</h1>
+    <form method="POST">
+        <label for="user">Nutzername:</label>
+        <input type="text" id="user" name="user" required>
+        <label for="event">Ereignis:</label>
+        <input type="text" id="event" name="event" required>
+        <input type="submit" value="Hinzufügen">
+    </form>
+    <div>
+        <canvas id="myChart" width="400" height="200"></canvas>
+    </div>
+    <script>
+        const labels = {{ labels|safe }};
+        const counts = {{ counts|safe }};
+
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Anzahl Striche',
+                    data: counts,
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
