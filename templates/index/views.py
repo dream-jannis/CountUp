@@ -31,4 +31,3 @@ def main():
         counts.append(data['count'])
 
     return render_template('index.html', labels=json.dumps(labels), counts=json.dumps(counts))
-
