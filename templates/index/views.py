@@ -15,15 +15,12 @@ def main():
         user = request.form['user']
         event = request.form['event']
 
-        # Daten in die MongoDB einfügen
         collection.insert_one({'user': user, 'event': event})
 
-    # Daten aus der MongoDB abrufen
     user_events = collection.aggregate([
         {'$group': {'_id': '$user', 'count': {'$sum': 1}}}
     ])
 
-    # Daten für das Balkendiagramm vorbereiten
     labels = []
     counts = []
     for data in user_events:
