@@ -1,26 +1,110 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
 <head>
-    <title>Haramcounter!</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strichliste</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f0f0f0;
-        }
-        #chart-container {
-            width: 80%;
-            height: 80vh;
-            margin: 5% auto;
-        }
+    font-family: 'Arial', sans-serif;
+    background: #121212;
+}
+
+.glass, .glass-modal {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.glass::before, .glass-modal::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    z-index: -1;
+    background: linear-gradient(45deg, rgba(243, 104, 224, 0.4), rgba(104, 243, 173, 0.4), rgba(104, 174, 243, 0.4));
+    background-size: 400% 400%;
+    animation: movingGradient 8s infinite;
+}
+
+@keyframes movingGradient {
+    0% {
+        background-position: 100% 0%;
+    }
+    50% {
+        background-position: 0% 100%;
+    }
+    100% {
+        background-position: 100% 0%;
+    }
+}
+
+.btn-pink {
+    background-color: rgba(243, 104, 224, 0.7);
+    border: none;
+}
+
+.btn-close-white {
+    filter: invert(1);
+}
+
+.modal-content {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+.floating-points {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.point {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    animation-duration: 6s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+/* Hier würde der Code für die Animation der schwebenden Punkte folgen. */
+
     </style>
 </head>
-<body>
-    <div id="chart-container">
-        <canvas id="myChart"></canvas>
+<body class="bg-dark">
+    <!-- Hier ist der Code für die Navigation und den Hauptinhalt -->
+    <!-- ... -->
+    <div class="container mt-5">
+        <div class="glass p-4">
+            <h2 class="text-light mb-4">Benutzer Striche</h2>
+            <canvas id="userChart"></canvas>
+            <div class="floating-points">
+                <div class="point point1"></div>
+                <div class="point point2"></div>
+                <div class="point point3"></div>
+            </div>
+        </div>
+        <button class="btn btn-pink mt-4" data-bs-toggle="modal" data-bs-target="#addStrokeModal">Neuen Strich hinzufügen</button>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="{{url_for('static', filename='script.js')}}"></script>
+    <!-- Hier ist der Code für das Modal -->
+    <!-- ... -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="scripts.js"></script>
 </body>
 </html>
