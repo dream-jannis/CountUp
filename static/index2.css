@@ -1,0 +1,74 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background: #121212;
+}
+
+.glass, .glass-modal {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.glass::before, .glass-modal::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    z-index: -1;
+    background: linear-gradient(45deg, rgba(243, 104, 224, 0.4), rgba(104, 243, 173, 0.4), rgba(104, 174, 243, 0.4));
+    background-size: 400% 400%;
+    animation: movingGradient 8s infinite;
+}
+
+@keyframes movingGradient {
+    0% {
+        background-position: 100% 0%;
+    }
+    50% {
+        background-position: 0% 100%;
+    }
+    100% {
+        background-position: 100% 0%;
+    }
+}
+
+.btn-pink {
+    background-color: rgba(243, 104, 224, 0.7);
+    border: none;
+}
+
+.btn-close-white {
+    filter: invert(1);
+}
+
+.modal-content {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+.floating-points {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.point {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    animation-duration: 6s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
