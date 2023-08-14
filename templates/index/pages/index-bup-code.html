@@ -1,0 +1,163 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strichliste</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: #121212;
+}
+
+.glass, .glass-modal {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.glass::before, .glass-modal::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    z-index: -1;
+    background: linear-gradient(45deg, rgba(243, 104, 224, 0.4), rgba(104, 243, 173, 0.4), rgba(104, 174, 243, 0.4));
+    background-size: 400% 400%;
+    animation: movingGradient 8s infinite;
+}
+
+@keyframes movingGradient {
+    0% {
+        background-position: 100% 0%;
+    }
+    50% {
+        background-position: 0% 100%;
+    }
+    100% {
+        background-position: 100% 0%;
+    }
+}
+
+.btn-pink {
+    background-color: rgba(243, 104, 224, 0.7);
+    border: none;
+}
+
+.btn-close-white {
+    filter: invert(1);
+}
+
+.modal-content {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+/* Parallax floating dots */
+.glass::after, .glass-modal::after {
+    content: "";
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    width: 10px;
+    height: 10px;
+    background-color: rgba(243, 104, 224, 0.7);
+    border-radius: 50%;
+    animation: floatDot1 6s infinite alternate;
+}
+
+@keyframes floatDot1 {
+    0% {
+        transform: translateY(0) translateX(0);
+    }
+    100% {
+        transform: translateY(50px) translateX(50px);
+    }
+}
+
+.glass::after, .glass-modal::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 15px;
+    height: 15px;
+    background-color: rgba(104, 243, 173, 0.7);
+    border-radius: 50%;
+    animation: floatDot2 5s infinite alternate;
+}
+
+    </style>
+</head>
+<body class="bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-transparent">
+        <div class="container">
+            <a class="navbar-brand" href="#">Strichliste</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Einstellungen</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="glass p-4">
+            <h2 class="text-light mb-4">Benutzer Striche</h2>
+            <canvas id="userChart"></canvas>
+        </div>
+        <button class="btn btn-pink mt-4" data-bs-toggle="modal" data-bs-target="#addStrokeModal">Neuen Strich hinzufügen</button>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="addStrokeModal" tabindex="-1" aria-labelledby="addStrokeModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content glass-modal">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addStrokeModalLabel">Neuen Strich hinzufügen</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="username" class="form-label text-light">Benutzername</label>
+                            <input type="text" class="form-control" id="username">
+                        </div>
+                        <div class="mb-3">
+                            <label for="strokeReason" class="form-label text-light">Grund für den Strich</label>
+                            <textarea class="form-control" id="strokeReason" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Schließen</button>
+                    <button type="button" class="btn btn-pink">Strich hinzufügen</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="scripts.js"></script>
+</body>
+</html>
