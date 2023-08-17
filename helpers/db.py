@@ -10,7 +10,7 @@ import datetime
 client = MongoClient()
 #client = MongoClient('mongodb://mongodb:27017/')
 
-db = client["cardmaven"]
+db = client["countup"]
 
 def get_user_id(user):
     user_id = db.users.find_one({"username": user}, {"_id": 1})["_id"]
