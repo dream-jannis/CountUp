@@ -18,30 +18,49 @@
       </div>
 <script>
 
-        const labels = {{ labels|safe }};
-        const counts = {{ counts|safe }};
+const labels = {{ data['labels']|tojson|safe }};
+const counts = {{ data['counts']|tojson|safe }};
 
-        const ctx = document.getElementById('myChart').getContext('2d');
-        const myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Anzahl Striche',
-                    data: counts,
-                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
-                    borderColor: 'rgba(54, 162, 235, 1)',
-                    borderWidth: 1
-                }]
+const ctx = document.getElementById('myChart').getContext('2d');
+const myChart = new Chart(ctx, {
+    type: 'bar',  // Ändern Sie dies zu 'horizontalBar'
+    data: {
+        labels: labels,
+        datasets: [{
+            label: 'Anzahl Striche',
+            data: counts,
+            backgroundColor: 'rgba(54, 162, 235, 0.5)',
+            borderRadius: 50,
+        }]
+    },
+    options: {
+        indexAxis: 'y',
+        scales: {
+            x: {  // Beachten Sie, dass es jetzt 'x' und nicht 'y' ist, da es ein horizontales Balkendiagramm ist
+                beginAtZero: true
+            }
+        },
+        plugins: {
+            legend: {
+                display: false
+            }
+        },
+        scales: {
+            x: {
+                grid: {
+                display: false
+                }
             },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
+            y: {
+
+                grid: {
+                display: false
                 }
             }
-        });
+        }
+    }
+});
+
 
 </script>
 </body>
