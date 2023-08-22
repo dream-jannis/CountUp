@@ -46,3 +46,8 @@ def authenticate_user(username=None, password=None):
     else:
         return False
 
+def add_stroke_on_reservation(receiver, added_from):
+    db.stroke_reservation.insert_one({"username": receiver, "added_from": added_from, "added_at": datetime.datetime.now(), "votes": 0})
+
+def add_stroke(receiver, added_from):
+    db.strokes.insert_one({"username": receiver, "added_from": added_from})
