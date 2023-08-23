@@ -3,6 +3,8 @@ DB-File
 """
 from pymongo import MongoClient
 from bson.objectid import ObjectId
+from flask import session
+
 import hashlib
 import secrets
 import datetime
@@ -45,9 +47,32 @@ def authenticate_user(username=None, password=None):
         return True
     else:
         return False
+    
+def read_all_users():
+    return [x for x in db.users.find()]
 
-def add_stroke_on_reservation(receiver, added_from):
-    db.stroke_reservation.insert_one({"username": receiver, "added_from": added_from, "added_at": datetime.datetime.now(), "votes": 0})
+def add_stroke_on_reservation(receiver, added_from, reason):
+    db.stroke_reservation.insert_one(
+        {
+            "username": receiver, 
+            "added_from": added_from, 
+            "added_at": datetime.datetime.now(),
+            "reason": reason,
+            "votes": 1,
+            "first_vote": session["username"],
+            "second_vote": "",
+            "third_vote": "",
+        }
+    )
+
+def add_vote(stroke_id):
+    db.stroke_reservation.update_one(
+        {"_id": stroke_id},
+        {"$inc": {"votes": 1}}
+    )
 
 def add_stroke(receiver, added_from):
     db.strokes.insert_one({"username": receiver, "added_from": added_from})
+
+def read_all_strokes_on_reservation():
+    return [x for x in db.stroke_reservation.find()]

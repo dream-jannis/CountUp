@@ -4,25 +4,66 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{url_for('static', filename='index.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='fontawesome/css/all.css')}}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Haramcounter</title>
 </head>
 <body>
+
+    <nav class="navbar navbar-expand-lg bg-body-tertiary" style="z-index: 99;">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Navbar</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Dropdown
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">Action</a></li>
+                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+              </li>
+            </ul>
+            <form class="d-flex" role="search">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+      </nav>
+
+
+
     <div class="glassbox">
         <div class="container text-center">
             <div class="row align-items-start">
               <div class="col">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addStrokeModal">
                     Strich anlegen
                 </button>
               </div>
               <div class="col">
-                <h2>Haramcounter</h2>
+                <h2 style="color: white;">Haramcounter</h2>
               </div>
               <div class="col">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    {{data["count_open_strokes"]}} offene Striche
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#strokesOnReservationModal">
+                    {{data["count_open_strokes"]}} offene Striche
                 </button>
               </div>
             </div>
@@ -31,24 +72,66 @@
             <canvas id="myChart" width="400" height="200"></canvas>
         </div>
       </div>
-    <!-- Button trigger modal -->
-    
-    
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+    <div class="modal fade" id="addStrokeModal" tabindex="-1" aria-labelledby="addStrokeModalLabel" aria-hidden="true">
         <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+            <h1 class="modal-title fs-5" id="addStrokeModalLabel">Modal title</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-            ...
+            <div>
+                <form id="add_stroke_form" action="{{url_for('index.add_stroke')}}" method="post">
+                    <div class="mb-3">
+                      <div class="form-floating">
+                        <select name="user" class="form-select" id="name_input" aria-label="Floating label select addStroke">
+                        {% for name in data['user_names'] %}
+                            <option value="{{ name }}">{{ name }}</option>
+                        {% endfor %}
+                        </select>
+                        <label for="name_input">Strich für...</label>
+                      </div>
+                    </div>
+                    <div class="mb-3">
+                      <label for="event_input" class="form-label">Was hat er gesagt? (optional)</label>
+                      <input name="event" type="text" class="form-control" id="event_input">
+                    </div>
+                </form>
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+            <button onclick="document.getElementById('add_stroke_form').submit();" type="button" class="btn btn-primary">Save changes</button>
             </div>
+        </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="strokesOnReservationModal" tabindex="-1" aria-labelledby="strokesOnReservationModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="strokesOnReservationModalLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div style="margin: 50px; overflow: scroll;">
+                    {% for stroke in data['strokes_on_reservation'] %}
+                        <div class="strokes_on_reservation">    
+                            <p>Strich für: {{ stroke.username }}</p>
+                            <p>Eingetragen von: {{ stroke.added_from }}</p>
+                            <p>Was hat er gemacht: {{ stroke.reason }}</p>
+                            <p>Votes: {{ stroke.votes }}</p>
+                            <button class="btn">
+                                <i class="fa-regular fa-circle-xmark" style="color: #ff2600;"></i>
+                            </button>
+                            <button class="btn">
+                                <i class="fa-regular fa-circle-check" style="color: #00f900;"></i>
+                            </button>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
         </div>
         </div>
     </div>
@@ -57,8 +140,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
 <script>
 
-const labels = {{ data['labels']|tojson|safe }};
-const counts = {{ data['counts']|tojson|safe }};
+const labels = {{ data['user_names']|tojson|safe }};
+const counts = {{ data['strokes']|tojson|safe }};
 
 const ctx = document.getElementById('myChart').getContext('2d');
 const myChart = new Chart(ctx, {
@@ -75,7 +158,7 @@ const myChart = new Chart(ctx, {
     options: {
         indexAxis: 'y',
         scales: {
-            x: {  // Beachten Sie, dass es jetzt 'x' und nicht 'y' ist, da es ein horizontales Balkendiagramm ist
+            x: {
                 beginAtZero: true
             }
         },

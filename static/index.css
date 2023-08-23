@@ -23,14 +23,14 @@ body {
 
 .glassbox {
   position: absolute;
-  top: 50%;
+  top: 52%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
 .box {
   position: relative;
-  height: 90vh;
+  /*height: 90vh;*/
   width: 90vw;
   border-radius: 25px;
   background: rgba(255, 255, 255, 0.2);
@@ -44,5 +44,19 @@ h2 {
 }
 
 .btn-primary {
-	background-color: #f243ff;
+	background-color: #5d12ff !important;
+	border: 0 !important;
+} 
+
+.btn {
+	border-radius: 2000px !important;
 }
+
+.strokes_on_reservation {
+	padding: 10px;
+}
+
+.strokes_on_reservation:not(:last-child) {
+	border-bottom: 1px solid #d4d2d2;
+}
+  
