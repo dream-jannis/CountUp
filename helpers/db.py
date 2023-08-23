@@ -65,10 +65,13 @@ def add_stroke_on_reservation(receiver, added_from, reason):
         }
     )
 
-def add_vote(stroke_id):
+def add_vote(stroke_id, vote):
     db.stroke_reservation.update_one(
-        {"_id": stroke_id},
-        {"$inc": {"votes": 1}}
+        {"_id": ObjectId(stroke_id)},
+        {
+            "$inc": {"votes": 1},
+            "$set": {"second_vote": vote}
+        }
     )
 
 def add_stroke(receiver, added_from):
