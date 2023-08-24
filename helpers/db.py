@@ -66,16 +66,35 @@ def add_stroke_on_reservation(receiver, added_from, reason):
     )
 
 def add_vote(stroke_id, vote):
-    db.stroke_reservation.update_one(
-        {"_id": ObjectId(stroke_id)},
+    stroke = db.stroke_reservation.find_one({"_id": ObjectId(stroke_id)})
+    if stroke:
+        if stroke["votes"] == 1:
+            update_field = "second_vote"
+        elif stroke["votes"] == 2:
+            update_field = "third_vote"
+        else:
+            print("Unerwarteter Zustand der 'votes'")
+            return
+
+        db.stroke_reservation.update_one(
+            {"_id": ObjectId(stroke_id)},
+            {
+                "$set": {update_field: vote},
+                "$inc": {"votes": 1},
+            }
+        )
+    else:
+        print("Dokument nicht gefunden")
+
+def add_stroke(receiver, added_from, added_at, reason):
+    db.strokes.insert_one(
         {
-            "$inc": {"votes": 1},
-            "$set": {"second_vote": vote}
+            "username": receiver,
+            "added_from": added_from,
+            "added_at": added_at,
+            "reason": reason,
         }
     )
-
-def add_stroke(receiver, added_from):
-    db.strokes.insert_one({"username": receiver, "added_from": added_from})
 
 def read_all_strokes_on_reservation():
     return [x for x in db.stroke_reservation.find()]
