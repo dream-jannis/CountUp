@@ -20,7 +20,8 @@ def main():
             strokes_on_reservation.append(item)
 
     count_strokes_reserveation = len(strokes_on_reservation)
-
+    
+    print("SUS",read_strokes_by_username())
     data = {
         'user_names': usernames,
         'strokes': [5, 50, 15,5,2,4],

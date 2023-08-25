@@ -72,6 +72,13 @@ def add_vote(stroke_id, vote):
             update_field = "second_vote"
         elif stroke["votes"] == 2:
             update_field = "third_vote"
+        elif stroke["votes"] == 3:
+            add_stroke(
+                stroke["username"],
+                stroke["added_from"],
+                stroke["added_at"],
+                stroke["reason"]
+            )
         else:
             print("Unerwarteter Zustand der 'votes'")
             return
@@ -98,3 +105,6 @@ def add_stroke(receiver, added_from, added_at, reason):
 
 def read_all_strokes_on_reservation():
     return [x for x in db.stroke_reservation.find()]
+
+def read_strokes_by_username(username):
+    return [x for x in db.strokes.find({"username": username})]
