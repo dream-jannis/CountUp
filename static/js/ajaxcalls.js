@@ -5,5 +5,11 @@ function verify_stroke(stroke_id){
       data: {
         "stroke_id": String(stroke_id),
       },
+      success: function(){ 
+        alert('success!');
+      },
+      error: function(){
+        alert('error!');
+      }
     });
 }

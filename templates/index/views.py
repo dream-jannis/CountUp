@@ -9,22 +9,27 @@ index = Blueprint("index", __name__, template_folder="pages")
 @index.route('/', methods=['GET', 'POST'])
 @login_required
 def main():
-
     usernames = []
+    user_stroke = {}
     for x in read_all_users():
-        usernames.append(x["username"])
+        username = x["username"]
+        usernames.append(username)
+        for y in read_all_strokes():
+            if username == y["username"]:
+                user_stroke[username] = len(read_strokes_by_username(username))
+
 
     strokes_on_reservation = []
     for item in read_all_strokes_on_reservation():
-        if session["username"] not in (item["first_vote"], item["second_vote"], item["third_vote"]):
+        if session["username"] not in (item["first_vote"],item["second_vote"], item["third_vote"]):
             strokes_on_reservation.append(item)
 
     count_strokes_reserveation = len(strokes_on_reservation)
-    
-    print("SUS",read_strokes_by_username())
+
     data = {
-        'user_names': usernames,
-        'strokes': [5, 50, 15,5,2,4],
+        'active_user': session['username'],
+        'usernames': usernames,
+        'user_stroke': user_stroke,
         'count_open_strokes': count_strokes_reserveation,
         'strokes_on_reservation': strokes_on_reservation
     }
