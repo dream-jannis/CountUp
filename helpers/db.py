@@ -18,7 +18,7 @@ def get_user_id(user):
     user_id = db.users.find_one({"username": user}, {"_id": 1})["_id"]
     return user_id
 
-def create_user(email, username, password):
+def create_user(email:str, username:str, password:str) -> None:
     salt = secrets.token_hex(16)
     hashed_password = hashlib.sha256((password + salt).encode('utf-8')).hexdigest()
     db.users.insert_one({"username": username, "email": email, "salt": salt, "password": hashed_password})
