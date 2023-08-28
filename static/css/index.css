@@ -17,6 +17,7 @@ body {
 	width: 90vw;
 	left: 50%;
   	transform: translate( -50%);
+	z-index: 1;
 }
 
 .navbar-brand {
@@ -36,21 +37,30 @@ body {
 }
 
 .glassbox {
+	margin-top: 30px;
+/*
   position: absolute;
   top: 52%;
   left: 50%;
   transform: translate(-50%, -50%);
+*/
+}
+
+.stroke_chart {
+	height: 100%; 
+	width: 100%;
 }
 
 .box {
-  position: relative;
-  /*height: 90vh;*/
-  width: 90vw;
-  border-radius: 25px;
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(30px);
-  box-shadow: 0 0 80px rgba(0, 0, 0, 0.2);
-  overflow: hidden;
+	margin: auto;
+	position: relative;
+	/*height: 90vh;*/
+	width: 90vw;
+	border-radius: 25px;
+	background: rgba(255, 255, 255, 0.2);
+	backdrop-filter: blur(30px);
+	box-shadow: 0 0 80px rgba(0, 0, 0, 0.2);
+	overflow: hidden;
 }
 
 h2 {

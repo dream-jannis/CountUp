@@ -1,9 +1,9 @@
 const labels = Object.keys(rawData);
 const counts = Object.values(rawData);
 
-const ctx = document.getElementById('myChart').getContext('2d');
+const ctx = document.getElementById('stroke_chart').getContext('2d');
 const myChart = new Chart(ctx, {
-    type: 'bar',  // Ändern Sie dies zu 'horizontalBar'
+    type: 'bar',
     data: {
         labels: labels,
         datasets: [{
@@ -14,6 +14,7 @@ const myChart = new Chart(ctx, {
         }]
     },
     options: {
+        responsive: true,
         indexAxis: 'y',
         scales: {
             x: {
