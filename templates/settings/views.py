@@ -6,4 +6,7 @@ settings = Blueprint('settings', __name__, template_folder='pages')
 
 @settings.route("", methods=["GET", "POST"])
 def main():
-    return render_template("settings.html")
+    data = {
+        'active_user': session['username'],
+    }
+    return render_template("settings.html", data = data)
