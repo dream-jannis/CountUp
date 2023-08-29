@@ -1,4 +1,25 @@
 {% extends 'base.html' %}
-{% block body %}
+{% block head %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/settings.css')}}">
+{% endblock %}
+
+{% block navbar %}
 <h2>Settings</h2>
+{% endblock %}
+
+{% block body %}
+<div class="wrapper">
+	<div class="box">
+		
+		<div class="profile-img">
+			<!--<img alt="" src="2.jpg">-->
+			<i class="fa-regular fa-circle-user fa-2xl"></i>
+		</div>
+		<h2>Jack Nikolson <span>Jackson Heights, USA</span></h2>
+		<p>Front-End Developer &<br>
+		Graphics Designer</p>
+		<p class="btn-area"><a href="#">Message</a> <a class="ex" href="#">Following</a></p>
+	</div>
+</div>
+
 {% endblock %}
