@@ -32,6 +32,7 @@ def main():
     data = {
         'active_user': session['username'],
         'usernames': usernames,
+        'profile_picture': get_profile_picture(session['username'])['profile_picture'],
         'user_stroke': user_stroke,
         'count_open_strokes': count_strokes_reservation,
         'strokes_on_reservation': strokes_on_reservation_user_no_vote,

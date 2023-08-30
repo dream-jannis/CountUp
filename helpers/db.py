@@ -18,10 +18,27 @@ def get_user_id(user):
     user_id = db.users.find_one({"username": user}, {"_id": 1})["_id"]
     return user_id
 
-def create_user(email:str, username:str, password:str) -> None:
-    salt = secrets.token_hex(16)
-    hashed_password = hashlib.sha256((password + salt).encode('utf-8')).hexdigest()
-    db.users.insert_one({"username": username, "email": email, "salt": salt, "password": hashed_password})
+def create_user(email: str, username: str, password: str) -> bool:
+    if db.users.find_one({"username": username}) is None:
+        salt = secrets.token_hex(16)
+        hashed_password = hashlib.sha256((password + salt).encode('utf-8')).hexdigest()
+        db.users.insert_one({"username": username, "email": email, "salt": salt, "password": hashed_password, "profile_picture": "default.png€"})
+        return True
+    else:
+        return False
+
+def update_profile_picture(username: str, new_picture: str) -> None:
+    """
+    Aktualisiert das Profilbild eines Benutzers in der Datenbank.
+    
+    Args:
+    username (str): Der Benutzername des Benutzers, dessen Profilbild aktualisiert werden soll.
+    new_picture (str): Der neue Wert für das Profilbild.
+    """
+    db.users.update_one({"username": username}, {"$set": {"profile_picture": new_picture}})
+
+def get_profile_picture(username):
+    return db.users.find_one({"username": username})
 
 def get_username_from_email(email):
     try:
