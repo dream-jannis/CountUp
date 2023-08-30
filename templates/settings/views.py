@@ -8,5 +8,9 @@ settings = Blueprint('settings', __name__, template_folder='pages')
 def main():
     data = {
         'active_user': session['username'],
+        'profile_picture': 'default'
     }
+    if request.method == "POST":
+        if 'file' not in request.files:
+            return redirect(request.url)
     return render_template("settings.html", data = data)
