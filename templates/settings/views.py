@@ -1,5 +1,6 @@
 import os
 
+from PIL import Image, ImageDraw
 from flask import Blueprint, session, request, jsonify, url_for, redirect, render_template, flash
 from werkzeug.utils import secure_filename
 
@@ -25,6 +26,7 @@ def upload_file():
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
         file.save(os.path.join(UPLOAD_FOLDER, filename))
+        convert_image(f"{os.path.join(UPLOAD_FOLDER, filename)}", f"{os.path.join(UPLOAD_FOLDER, filename)}")
         update_profile_picture(session['username'], str(filename))
         return jsonify({'message': 'File uploaded successfully', 'filename': filename})
     else:
@@ -34,3 +36,14 @@ def upload_file():
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+def convert_image(input_path, output_path, size=(100, 100), output_format='PNG'):
+    img = Image.open(input_path)
+    img = img.resize(size, Image.ANTIALIAS)
+    output = Image.new("RGBA", size, (0, 0, 0, 0))
+    draw = ImageDraw.Draw(output)
+    draw.pieslice([0, 0, *size], 0, 360, fill=(255, 255, 255, 255))
+    output.paste(img, (0, 0), mask=output)
+    if output_format == 'JPEG':
+        output = output.convert("RGB")
+    output.save(output_path, format=output_format)

@@ -31,9 +31,9 @@ let actionButton = document.querySelector(".action-button");
 let fileInput = document.querySelector("input[name='fileInput']");
 let fileReader = new FileReader();
 
+const ALLOWED_EXTENSIONS = ['png', 'jpg', 'jpeg', 'gif'];
 const DEFAULT_IMAGE_SRC = "/static/profile_pictures/{{data['profile_picture']}}";
 
-// Setze das Standardbild beim Laden der Seite
 picturePreview.src = DEFAULT_IMAGE_SRC;
 
 actionButton.addEventListener("click", () => {
@@ -43,11 +43,18 @@ actionButton.addEventListener("click", () => {
 fileInput.addEventListener("change", () => {
   if (fileInput.files && fileInput.files.length > 0) {
     let file = fileInput.files[0];
-    fileReader.readAsDataURL(file);
-    fileReader.onload = (e) => {
-      picturePreview.src = e.target.result;
-      uploadImageToServer(file);
-    };
+    let fileExtension = file.name.split('.').pop().toLowerCase();
+
+    if (ALLOWED_EXTENSIONS.includes(fileExtension)) {
+      fileReader.readAsDataURL(file);
+      fileReader.onload = (e) => {
+        picturePreview.src = e.target.result;
+        uploadImageToServer(file);
+      };
+    } else {
+      alert('Ungültige Dateierweiterung. Nur png, jpg, jpeg und gif sind erlaubt.');
+      fileInput.value = "";
+    }
   } else {
     picturePreview.src = DEFAULT_IMAGE_SRC;
   }
@@ -61,10 +68,11 @@ function uploadImageToServer(file) {
     url: 'settings/upload',
     type: 'POST',
     data: formData,
-    processData: false, // Wichtig!
-    contentType: false, // Wichtig!
+    processData: false,
+    contentType: false,
     success: function(data) {
       console.log('File uploaded successfully:', data);
+      location.reload();
     },
     error: function(error) {
       console.error('Error uploading file:', error);
