@@ -60,7 +60,7 @@
           <h1 class="modal-title fs-5" id="strokesOnReservationModalLabel">Offene Striche</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <div style="margin: 50px; overflow: scroll;">
+          <div style="margin: 50px; overflow: scroll; width: 80%;">
             {% if data['strokes_on_reservation']%}
               {% for stroke in data['strokes_on_reservation'] %}
                   <div class="strokes_on_reservation">    
@@ -88,6 +88,11 @@
             {% else %}
             <h3>Keine offenen Striche vorhanden!</h3>
             {% endif %}
+          </div>
+          <div style="width: 20%">
+            <img style="max-height: 30px; border-radius: 50%;" src="static/profile_pictures/{{data['profile_picture']}}">
+            <img style="max-height: 30px; border-radius: 50%;" src="static/profile_pictures/{{data['profile_picture']}}">
+            <img style="max-height: 30px; border-radius: 50%;" src="static/profile_pictures/{{data['profile_picture']}}">
           </div>
           <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Schließen</button>
