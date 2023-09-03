@@ -17,6 +17,7 @@ def main():
     data = {
         'active_user': session['username'],
         'profile_picture': get_profile_picture(session['username'])['profile_picture'],
+        'amount_strokes_user': len(read_strokes_by_username(session['username']))
     }
     return render_template("settings.html", data = data)
 

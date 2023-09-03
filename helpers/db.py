@@ -22,7 +22,7 @@ def create_user(email: str, username: str, password: str) -> bool:
     if db.users.find_one({"username": username}) is None:
         salt = secrets.token_hex(16)
         hashed_password = hashlib.sha256((password + salt).encode('utf-8')).hexdigest()
-        db.users.insert_one({"username": username, "email": email, "salt": salt, "password": hashed_password, "profile_picture": "default.png€"})
+        db.users.insert_one({"username": username, "email": email, "salt": salt, "password": hashed_password, "profile_picture": "default.png"})
         return True
     else:
         return False
