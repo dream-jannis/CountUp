@@ -10,10 +10,12 @@ index = Blueprint("index", __name__, template_folder="pages")
 @login_required
 def main():
     usernames = []
+    usernames_profile_picture = {}
     user_stroke = {}
     for x in read_all_users():
         username = x["username"]
         usernames.append(username)
+        usernames_profile_picture[username] = x["profile_picture"]
         for y in read_all_strokes():
             if username == y["username"]:
                 user_stroke[username] = len(read_strokes_by_username(username))
@@ -32,6 +34,7 @@ def main():
     data = {
         'active_user': session['username'],
         'usernames': usernames,
+        'usernames_profile_picture': usernames_profile_picture,
         'profile_picture': get_profile_picture(session['username'])['profile_picture'],
         'user_stroke': user_stroke,
         'count_open_strokes': count_strokes_reservation,
