@@ -62,3 +62,13 @@ body {
 .dropdown-item {
     color: #5d12ff !important;
 }
+
+.fork_on_github {
+	color: white;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.fork_on_github:hover {
+	color: rgb(255, 0, 247);
+}

@@ -56,7 +56,6 @@ def add_stroke():
 @index.route("/verify_stroke", methods=['GET', 'POST'])
 @login_required
 def verify_stroke():
-    print("asdf")
     if request.method == "POST":
         add_vote(request.form["stroke_id"], session["username"])
     return "Success", 200

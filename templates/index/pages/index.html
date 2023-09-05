@@ -63,19 +63,19 @@
           <div style="margin: 50px; /*overflow: scroll;*/">
             {% if data['strokes_on_reservation']%}
               {% for stroke in data['strokes_on_reservation'] %}
-                  <div class="strokes_on_reservation" style="float: left; width: 90%;">    
+                  <div id="div_ele_{{stroke._id}}"class="strokes_on_reservation" style="float: left; width: 90%;">    
                       <p>Strich für: {{ stroke.username }}</p>
                       <p>Eingetragen von: {{ stroke.added_from }}</p>
                       <p>Was hat er gemacht: {{ stroke.reason }}</p>
-                      <p>Votes: {{ stroke.votes }}</p>
+                      <p id="ele_vote_{{stroke._id}}">Votes: {{ stroke.votes }}</p>
                       <!--<button onclick="alert('Useless Button :) ')" class="btn">
                           <i class="fa-regular fa-circle-xmark" style="color: #ff2600;"></i>
                       </button>-->
-                      <button onclick="verify_stroke('{{ stroke._id }}')" class="btn">
+                      <button onclick="verify_stroke('{{ stroke._id }}', this, `{{data['profile_picture']}}`)" class="btn">
                           <i class="fa-regular fa-circle-check" style="color: #00f900;"></i>
                       </button>
                   </div>
-                  <div style="width: 10%; float: right; margin-top: 8%; padding: 2%;">
+                  <div id="profile_picture_section_{{stroke._id}}" style="width: 10%; float: right; margin-top: 8%; padding: 2%;">
                     {% if stroke.first_vote: %}
                     <img style="max-height: 30px; border-radius: 50%; margin: 10%;" src="static/profile_pictures/{{data['usernames_profile_picture'][stroke.first_vote]}}"
                     data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{ stroke.first_vote }}">

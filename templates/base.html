@@ -14,14 +14,25 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-light nav-custom">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{{url_for('index.main')}}">
-                Haramcounter
+            <a href="https://github.com/dream-jannis/CountUp" class="fork_on_github">
+            <!--<a class="navbar-brand" href="{{url_for('index.main')}}">-->
+                Fork me on Github!
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto me-auto">
+                    <li class="nav-item">
+                        <a style="margin-right: 15px;" type="button" class="btn btn-primary" href="{{url_for('index.main')}}">
+                          Start
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a style="margin-right: 15px;" type="button" class="btn btn-primary" href="#">
+                          Alle Nutzer
+                        </a>
+                      </li>
                     {% block navbar %}
                     {% endblock %}
                 </ul>

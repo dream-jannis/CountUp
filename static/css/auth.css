@@ -75,3 +75,7 @@ body::before {
     display: flex;
     justify-content: space-between;
 }
+
+h2 {
+    color: white;
+}
