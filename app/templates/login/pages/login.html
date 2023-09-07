@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/auth.css')}}">
+</head>
+<body class="dark-bg">
+    <div class="glass-container">
+        <h2>Login</h2>
+        <form action="" method="POST">
+            <input type="text" name="user" placeholder="Benutzername oder E-Mail" required>
+            <input type="password" name="password" placeholder="Passwort" required>
+            <div class="button-container">
+                <button type="submit">Einloggen</button>
+                <button type="button" onclick="location.href=`{{url_for('auth.register')}}`;">Registrieren</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
