@@ -9,8 +9,8 @@ import hashlib
 import secrets
 import datetime
 
-#client = MongoClient()
-client = MongoClient('mongodb://mongodb:27017/')
+client = MongoClient()
+#client = MongoClient('mongodb://mongodb:27017/')
 
 db = client["countup"]
 
