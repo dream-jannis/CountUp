@@ -4,15 +4,13 @@
 {% endblock %}
 {% block body %}
 <div class="wrapper">
-	<div class="box">
+	<div style="height: 80vh;" class="box">
     <h2 style="color: white;" >Settings</h2>
 		<div class="profile-picture-upload">
 			<img src="" alt="Profile picture preview" id="imagePreview" class="imagePreview">
 			<button class="action-button mode-upload">Upload avatar</button>
 			<input type="file" class="hidden" name="fileInput" />
 		  </div>
-
-
 		<h2>{{data['active_user']}}<span>Tolle Unterüberschrift</span></h2>
 		<p>Anzahl Striche:<br>
 		{{data['amount_strokes_user']}}</p>
