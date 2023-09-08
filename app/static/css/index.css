@@ -1,0 +1,43 @@
+.strokes_on_reservation {
+	padding: 10px;
+}
+
+.strokes_on_reservation:not(:last-child) {
+	border-bottom: 1px solid #d4d2d2;
+}
+
+.strokes_on_reservation_remaining {
+	padding: 10px;
+	color: #777777;
+}
+
+.strokes_on_reservation_remaining:not(:last-child) {
+	border-bottom: 1px solid #d4d2d2;
+}
+
+.stroke_chart {
+	height: 100%; 
+	width: 100%;
+}
+
+.box {
+	margin: auto;
+	position: relative;
+	/*height: 90vh;*/
+	width: 90vw;
+	border-radius: 25px;
+	background: rgba(255, 255, 255, 0.2);
+	backdrop-filter: blur(30px);
+	box-shadow: 0 0 80px rgba(0, 0, 0, 0.2);
+	overflow: hidden;
+}
+
+.glassbox {
+	margin-top: 30px;
+/*
+  position: absolute;
+  top: 52%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+*/
+}
