@@ -9,7 +9,7 @@ index = Blueprint("index", __name__, template_folder="pages")
 @login_required
 def main():
     """
-    Main Funktion
+    Main Funktion -> Index Route
     """
     usernames = []
     usernames_profile_picture = {}
