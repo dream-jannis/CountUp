@@ -2,13 +2,15 @@ from flask import Blueprint, render_template, redirect, url_for, session, reques
 
 from helpers.decorators import login_required
 from helpers.db import *
-import json
 
 index = Blueprint("index", __name__, template_folder="pages")
 
 @index.route('/', methods=['GET', 'POST'])
 @login_required
 def main():
+    """
+    Main Funktion
+    """
     usernames = []
     usernames_profile_picture = {}
     user_stroke = {}
@@ -46,6 +48,9 @@ def main():
 @index.route("/add_stroke", methods=['GET', 'POST'])
 @login_required
 def add_stroke():
+    """
+    Add Stroke Funktion
+    """
     if request.method == 'POST':
         user = request.form['user']
         event = request.form['event']
@@ -56,6 +61,9 @@ def add_stroke():
 @index.route("/verify_stroke", methods=['GET', 'POST'])
 @login_required
 def verify_stroke():
+    """
+    Verify Stroke Funktion
+    """
     if request.method == "POST":
         add_vote(request.form["stroke_id"], session["username"])
     return "Success", 200
